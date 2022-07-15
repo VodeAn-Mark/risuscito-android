@@ -4,21 +4,19 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import com.mikepenz.fastadapter.FastAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.fastadapter.IExpandable
 import com.mikepenz.fastadapter.expandable.items.AbstractExpandableItem
-import com.mikepenz.fastadapter.ui.utils.FastAdapterUIUtils
 import com.mikepenz.fastadapter.ui.utils.StringHolder
-import com.mikepenz.materialdrawer.holder.ColorHolder
 import it.cammino.risuscito.R
-import it.cammino.risuscito.Utility.helperSetColor
-import it.cammino.risuscito.Utility.helperSetString
+import it.cammino.risuscito.utils.Utility.helperSetColor
+import it.cammino.risuscito.utils.Utility.helperSetString
 
 fun simpleSubItem(block: SimpleSubItem.() -> Unit): SimpleSubItem = SimpleSubItem().apply(block)
 
-class SimpleSubItem : AbstractExpandableItem<SimpleSubItem.ViewHolder>(), IExpandable<SimpleSubItem.ViewHolder> {
+class SimpleSubItem : AbstractExpandableItem<SimpleSubItem.ViewHolder>(),
+    IExpandable<SimpleSubItem.ViewHolder> {
 
     var title: StringHolder? = null
         private set
@@ -41,68 +39,58 @@ class SimpleSubItem : AbstractExpandableItem<SimpleSubItem.ViewHolder>(), IExpan
             source = helperSetString(value)
         }
 
-    var color: ColorHolder? = null
+    var color: Int = Color.WHITE
         private set
-    var setColor: Any? = null
+    var setColor: String? = null
         set(value) {
             color = helperSetColor(value)
         }
 
     var id: Int = 0
 
-    var isHasDivider = false
-
     override val type: Int
         get() = R.id.fastadapter_sub_item_id
 
     override val layoutRes: Int
-        get() = R.layout.simple_sub_item
+        get() = R.layout.simple_row_item
+
+    /**
+     * binds the data of this item onto the viewHolder
+     *
+     * @param holder the viewHolder of this item
+     */
+    override fun bindView(holder: ViewHolder, payloads: List<Any>) {
+        super.bindView(holder, payloads)
+
+        //set the background for the item
+        holder.view.clearAnimation()
+        StringHolder.applyTo(title, holder.mTitle)
+        StringHolder.applyToOrHide(page, holder.mPage)
+
+        val bgShape = holder.mPage.background as? GradientDrawable
+        bgShape?.setColor(color)
+        holder.mPage.isVisible = true
+        holder.mPageSelected.isVisible = false
+
+        holder.mId.text = id.toString()
+    }
+
+    override fun unbindView(holder: ViewHolder) {
+        super.unbindView(holder)
+        holder.mTitle.text = null
+        holder.mPage.text = null
+        holder.mId.text = null
+    }
 
     override fun getViewHolder(v: View): ViewHolder {
         return ViewHolder(v)
     }
 
-    class ViewHolder(private var view: View) : FastAdapter.ViewHolder<SimpleSubItem>(view) {
-
-        private var mTitle: TextView? = null
-        private var mPage: TextView? = null
-        private var mPageSelected: View? = null
-        private var mId: TextView? = null
-        private var mItemDivider: View? = null
-
-        override fun bindView(item: SimpleSubItem, payloads: List<Any>) {
-            val ctx = itemView.context
-
-            StringHolder.applyTo(item.title, mTitle)
-            StringHolder.applyToOrHide(item.page, mPage)
-            view.background = FastAdapterUIUtils.getSelectableBackground(
-                    ctx,
-                    ContextCompat.getColor(ctx, R.color.selected_bg_color),
-                    false)
-
-            val bgShape = mPage?.background as? GradientDrawable
-            bgShape?.setColor(item.color?.colorInt ?: Color.WHITE)
-            mPage?.isVisible = true
-            mPageSelected?.isVisible = false
-
-            mId?.text = item.id.toString()
-
-            mItemDivider?.isVisible = item.isHasDivider
-        }
-
-        override fun unbindView(item: SimpleSubItem) {
-            mTitle?.text = null
-            mPage?.text = null
-            mId?.text = null
-        }
-
-        init {
-            mTitle = view.findViewById(R.id.text_title)
-            mPage = view.findViewById(R.id.text_page)
-            mPageSelected = view.findViewById(R.id.selected_mark)
-            mId = view.findViewById(R.id.text_id_canto)
-            mItemDivider = view.findViewById(R.id.item_divider)
-        }
+    class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
+        var mTitle: TextView = view.findViewById(R.id.text_title)
+        var mPage: TextView = view.findViewById(R.id.text_page)
+        var mPageSelected: View = view.findViewById(R.id.selected_mark)
+        var mId: TextView = view.findViewById(R.id.text_id_canto)
     }
 
 }
