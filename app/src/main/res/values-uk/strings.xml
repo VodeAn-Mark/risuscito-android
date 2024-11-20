@@ -114,7 +114,7 @@
     <string name="open_pdf">Відкрити PDF</string>
     <string name="activity_homepage">Домашня сторінка</string>
     <string name="no_memory_writable">Пам\'ять не доступна або в режимі тільки читання</string>
-    <string name="salmi_musica_index">Зміст псалмів з мелодіями</string>
+    <string name="salmi_musica_index">Біблійний зміст</string>
     <string name="only_link">Хочеш асоціювати існуючий файл mp3 з пам\'яті пристрою?</string>
     <string name="dialog_delete_link">Ти впевнений, що хочеш від\'єднати від існуючого файлу в пам\'яті? (Файл не буде видалено)</string>
     <string name="delink_delete">Файл від\'єднано</string>
@@ -310,8 +310,8 @@
     <string name="elezione_2">Вибрання - середня частина</string>
     <string name="elezione_3">Вибрання - кінцева</string>
     <string name="passaggio_none">Жоден</string>
-    <string name="dynamic_colors_title">Dynamic colors</string>
-    <string name="dynamic_colors_summary">Apply dynamic colors based on your wallpaper</string>
+    <string name="dynamic_colors_title">Динамічний колір</string>
+    <string name="dynamic_colors_summary">Застосувати динамічні кольори на основі шпалер</string>
     <string name="edit_note_title">Примітка</string>
     <string name="edit_note_confirm_message">Nota salvata</string>
     <string name="show_eucarestia_pace_summary">Додати пісню на мир для Євхаристії</string>
