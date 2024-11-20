@@ -114,7 +114,7 @@
     <string name="open_pdf">Відкрити PDF</string>
     <string name="activity_homepage">Домашня сторінка</string>
     <string name="no_memory_writable">Пам\'ять не доступна або в режимі тільки читання</string>
-    <string name="salmi_musica_index">Зміст псалмів з мелодіями</string>
+    <string name="salmi_musica_index">Біблійний зміст</string>
     <string name="only_link">Хочеш асоціювати існуючий файл mp3 з пам\'яті пристрою?</string>
     <string name="dialog_delete_link">Ти впевнений, що хочеш від\'єднати від існуючого файлу в пам\'яті? (Файл не буде видалено)</string>
     <string name="delink_delete">Файл від\'єднано</string>
